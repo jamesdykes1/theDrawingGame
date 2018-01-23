@@ -28,19 +28,24 @@
 				
 				
             } */
+
         </script>
 
+		<script src="sketch.js"></script>
   </head>
   <body>
- 
-	<div id="mainDiv">
-        <h2>Your Name</h2>
-        <form name="player" method="POST" action="/player">
-            Username<input type="text" name="userid"/>
-            <input type="submit" onclick="check(this.form)" value="Play"/>
-            <input type="reset" value="Cancel"/>
+
+<div id="mainBody">	
+	<h1>The Drawing Game</h1>
+		<div id="Player1"></div></br>
+		<div id="Point"></div>
+		<div id="clue">
+			<form name="player" method="POST" action="/player">
+            Type the clue<input type="text" name="userid"/>
+            <input type="submit" value="Submit clue"/></br></br>
         </form>
-	</div> 
+		</div>
+</div>
 
   </body>
 </html>
