@@ -8,6 +8,23 @@ function setup() {
   socket.on('mouse', newDrawing);
 }
 
+// create word for others to guess
+document.getElementById("send").addEventListener("click",
+function(){
+  var theWord = document.getElementById("theWord").value;
+  document.getElementById("output").innerHTML = theWord;
+  var data = theWord;
+  socket.emit('word', data);
+});
+
+// make a guess
+document.getElementById("submitGuess").addEventListener("click",
+function(){
+  var theGuess = document.getElementById("wordGuess").value;
+  var data = theGuess;
+  socket.emit('guess', data);
+});
+
 /*
     Recieving a drawing from another broswer/ client
  */
