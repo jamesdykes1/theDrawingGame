@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Drawing Game</title>
+	<link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Pacifico|Indie+Flower" rel="stylesheet">
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <style> body {padding: 0; margin: 0;} </style>
+    <!--Drawing libraries from p5js -->
+    <script src="libraries/p5.js"></script>
+    <script src="libraries/p5.dom.js"></script>
+    <script src="libraries/p5.sound.js"></script>
+    <!-- socket io client served from CDN -->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	
+	
+
+		<script src="sketchplayer.js"></script> 
+<style>
+#result {
+width:80%;
+color:#666666;
+margin-right:auto;
+margin-left: auto;
+margin-top:10px;
+padding:10px;
+font-family:helvetica, sans-serif;line-height:1;
+font-size:14px;
+-webkit-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
+box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
+
+}
+#form {
+width:80%;
+margin-right:auto;
+margin-left: auto;
+
+}
+#wrapper {
+width:80%;
+position: relative; 
+height:600px;
+margin-right:auto;
+margin-left: auto;
+margin-top:-40px;
+padding-bottom:20px;
+-webkit-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+background-image: url("White-Backgrounds.jpg");
+}
+
+h1 {
+text-shadow:3px 1px 1px rgba(82,82,82,1);
+font-weight:bold;
+color:#ffffff;
+letter-spacing:1pt;
+word-spacing:2pt;
+font-size:4em;
+text-align:center;
+font-family: 'Pacifico', cursive;
+padding:10px;
+}
+h2 {
+color:#C0392B;
+font-size:2em;
+font-family: 'Homemade Apple', cursive;
+padding-top:10px;
+}
+
+input[type=text] {
+padding:5px 15px; 
+background:#f0f0f0; 
+border:0 none;
+cursor:pointer;
+color:999999;
+width:400px;
+height:20px;
+font-family: 'Pacifico', cursive;
+}
+input[type=submit] {
+background:white; 
+border:0 none;
+color:22313F;
+width:140px;
+height:30px;
+font-family: 'Pacifico', cursive;
+}
+input[type=reset] {
+background:#666666; 
+border:0 none;
+color:white;
+width:100px;
+height:30px;
+font-family: 'Pacifico', cursive;
+}
+#headerText {
+width:100%;
+height: 300px;
+margin-bottom:4px;
+background-image: url("back2.png"),  url("back.png");
+background-position: right bottom, left top;
+background-color: #C0392B;
+background-repeat: no-repeat, no-repeat;
+background-size: 20% 100%;
+}
+#headerText h1{
+line-height: 300px;
+}
+#scoreboard {
+width:40%;
+height:360px;
+float:right;
+background-color:#f0f0f0;
+opacity: transparent;
+background-image: url("scoreboard.png");
+padding:20px;
+}
+#playerboard {
+float:left;
+}
+body {
+margin-top:-80px;
+}
+#form h3 {
+width: 90%;
+float:right;
+text-align:center;
+font-family: 'Indie Flower', cursive;
+font-size:2em;
+color:#22313F;
+background-color: transparent;
+}
+#guessword {
+font-weight:bold;
+font-size:1em;
+width: 100%;
+height:60px;
+color:#ffffff;
+background-color: #C0392B;
+position: absolute; 
+bottom: 0; 
+
+}
+
+
+table.blueTable {
+  width: 90%;
+  float:right;
+  text-align: left;
+  margin-top:-40px;
+  border-collapse: collapse;
+  color:#22313F;
+  background-color: transparent;
+  font-family: 'Indie Flower', cursive;
+}
+
+table.blueTable tbody td {
+  font-size: 1em;
+    padding:2px;
+}
+
+table.blueTable thead th {
+  font-size: 1.2em;
+  font-weight: bold;
+	text-decoration: underline;
+  color: #22313F;
+
+}
+form {
+margin:10px 0 0 156px;
+
+}
+
+#timer {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #22313F;
+  width:30%;
+  height:100px;
+  background-color:transparent;
+  float:right;
+  text-align:center;
+    font-family: 'Indie Flower', cursive;
+	margin-top:20px;
+
+}
+
+
+#counter {
+  width:30%;
+  height:100%;
+  background-color:transparent;
+  border: 1px solid #C0392B;
+	border-radius: 10px;
+  float:right;
+  padding-left:6px;
+    font-size: 4em;
+
+}
+#title {
+width:60%;
+float:left;
+}
+.span{
+background:transparent; 
+border:0 none;
+color:white;
+width:600px;
+height:30px;
+float:right;
+text-align:left;
+font-size:1.4em;
+font-family: 'Pacifico', cursive;
+
+}
+</style>
+  </head>
+  <body>
+
+<div id="headerText"><h1>The Drawing Game</h1></div>
+<div id="wrapper">
+	<div id="form">	
+		<div id="title">
+		<h2><%= data.username %>, can you guess what the drawing is?</h2>
+		</div>
+		<div id="timer">
+		Counting down, Hurry!
+			<div id="counter">
+			</div>
+			<script type="text/javascript">
+				var timeleft = 90;
+				var downloadTimer = setInterval(function(){
+				timeleft--;
+				document.getElementById("counter").textContent = timeleft;
+				if(timeleft <= 0)
+					clearInterval(downloadTimer);
+					if(timeleft <= 0) {
+				document.getElementById("timer").textContent = "Time's up! refresh to play again";
+				}				
+				},1000);
+
+				
+			</script>
+
+		</div>
+		<div id="playerboard">
+			<!--canvas goes here -->
+		</div>
+		
+		<div id="scoreboard">
+			<h3>Scoreboard</h3>
+		<table class="blueTable">
+		<thead>
+		<tr>
+		<th>Player</th>
+		<th>Score</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr><td><%= data.username %></td><td>1</td></tr>
+		<tr><td>James</td><td>2</td></tr>
+		<tr><td>Max</td><td>3</td></tr>
+		<tr><td>Jack</td><td>4</td></tr>
+		<tr><td><%= data.username %></td><td>1</td></tr>
+		<tr><td>James</td><td>2</td></tr>
+
+		
+
+		</tbody>
+		</tr>
+		</table>
+			
+		</div>
+	</div>
+
+		<div id="guessword">
+
+					<form name="guesser" method="POST" action="/guesser">
+				<input type="text" name="guessedWord"/> 
+				<input type="submit" onclick="check(this.form)" value="Guess"/>
+				<input type="reset" value="Cancel"/>
+
+				<span class="span">Ooo nice one, you got it.</span>
+
+			</form>
+
+
+	</div>
+
+	
+</div>
+
+  </body>
+</html>

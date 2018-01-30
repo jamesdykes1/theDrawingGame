@@ -1,7 +1,8 @@
 var socket;
 
 function setup() {
-  createCanvas(400, 400);
+  var canvas = createCanvas(680, 400);
+  canvas.parent('playerboard');
   background(51);
 
   socket = io.connect('http://localhost:3000')
