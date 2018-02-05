@@ -5,7 +5,7 @@ function setup() {
   canvas.parent('playerboard');
   background(51);
 
-  socket = io.connect('8080')
+  socket = io.connect('http://localhost:3000')
   socket.on('mouse', newDrawing);
 }
 
@@ -21,7 +21,7 @@ function newDrawing(data){
 
 /*
     Drawing to your own broswer
- */
+
 
 function mouseDragged(){
   console.log('Sending: ' + mouseX + ', ' + mouseY);
@@ -40,3 +40,4 @@ function mouseDragged(){
 
 function draw() {
 }
+ */

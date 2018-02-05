@@ -3,6 +3,7 @@
   <head>
     <title>The Drawing Game</title>
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+	<link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Pacifico|Indie+Flower" rel="stylesheet">
     <style> body {padding: 0; margin: 0;} </style>
     <!--Drawing libraries from p5js -->
     <script src="libraries/p5.js"></script>
@@ -11,10 +12,10 @@
     <!-- socket io client served from CDN -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script language="javascript">
-          /*  function check(form) { 
+          /*  function check(form) {
                 var playername = form.userid.value;
                 //mainBody.style.display = "none";
-				if(playername != "" ) {					
+				if(playername != "" ) {
 					for (var i = 0; i < playername.length; i++){
 						Player1.innerText += playername;
 						mainDiv.style.display = "none";
@@ -25,22 +26,120 @@
                     alert("get username");
 					mainBody.style.display = "none";
                 }
-				
-				
+
+
             } */
         </script>
+<style>
+#result {
+width:80%;
+color:#666666;
+margin-right:auto;
+margin-left: auto;
+margin-top:10px;
+padding:10px;
+font-family:helvetica, sans-serif;line-height:1;
+font-size:14px;
+-webkit-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
+box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
 
+}
+#form {
+width:80%;
+margin-right:auto;
+margin-left: auto;
+
+}
+#wrapper {
+width:80%;
+margin-right:auto;
+margin-left: auto;
+padding-bottom:20px;
+-webkit-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+}
+
+h1 {
+text-shadow:3px 1px 1px rgba(82,82,82,1);
+font-weight:bold;
+color:#ffffff;
+letter-spacing:1pt;
+word-spacing:2pt;
+font-size:4em;
+text-align:center;
+font-family: 'Pacifico', cursive;
+padding:10px;
+}
+h2 {
+color:#C0392B;
+font-size:1.4em;
+font-family: 'Indie Flower', cursive;
+padding-top:10px;
+}
+
+input[type=text] {
+padding:5px 15px;
+background:#f0f0f0;
+border:0 none;
+cursor:pointer;
+color:999999;
+width:400px;
+height:40px;
+font-family: 'Pacifico', cursive;
+}
+input[type=submit] {
+background:#C0392B;
+border:0 none;
+color:white;
+font-family: 'Indie Flower', cursive;
+font-size:1.2em;
+width:300px;
+height:40px;
+font-family: 'Pacifico', cursive;
+}
+input[type=reset] {
+background-color:#f0f0f0;
+border:0 none;
+color:#22313F;
+font-family: 'Indie Flower', cursive;
+font-size:1.2em;
+width:120px;
+height:40px;
+font-family: 'Pacifico', cursive;
+}
+#headerText {
+width:100%;
+height: 300px;
+margin-bottom:4px;
+background-color: #C0392B;
+}
+#headerText h1{
+line-height: 300px;
+}
+body {
+margin-top:-80px;
+}
+</style>
   </head>
   <body>
- 
-	<div id="mainDiv">
-        <h2>Your Name</h2>
-        <form name="player" method="POST" action="/player">
-            Username<input type="text" name="userid"/>
-            <input type="submit" onclick="check(this.form)" value="Play"/>
-            <input type="reset" value="Cancel"/>
-        </form>
-	</div> 
+<div id="headerText"><h1>The Drawing Game</h1></div>
+ <div id="wrapper">
+
+	<div id="form">
+			<form name="player" method="POST" action="/player">
+				<h2>Choose a user name</h2>
+				<input type="text" name="username"/>
+				<h2>Give a clue word</h2>
+				<input type="text" name="clueword"/> </br></br>
+				<input type="submit" onclick="check(this.form)" value="Play"/>
+				<input type="reset" value="Cancel"/>
+			</form>
+
+	</div>
+</div>
+
 
   </body>
 </html>
