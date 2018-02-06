@@ -11,10 +11,10 @@
     <script src="libraries/p5.sound.js"></script>
     <!-- socket io client served from CDN -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-	
-	
 
-		<script src="sketch.js"></script> 
+
+
+		<script src="sketch.js"></script>
 
 
 <style>
@@ -40,7 +40,7 @@ margin-left: auto;
 }
 #wrapper {
 width:80%;
-position: relative; 
+position: relative;
 height:600px;
 margin-right:auto;
 margin-left: auto;
@@ -71,8 +71,8 @@ padding-top:10px;
 }
 
 input[type=text] {
-padding:5px 15px; 
-background:#f0f0f0; 
+padding:5px 15px;
+background:#f0f0f0;
 border:0 none;
 cursor:pointer;
 color:999999;
@@ -80,14 +80,14 @@ width:400px;
 height:20px;
 }
 input[type=submit] {
-background:#C0392B; 
+background:#C0392B;
 border:0 none;
 color:white;
 width:140px;
 height:30px;
 }
 input[type=reset] {
-background:#f0f0f0; 
+background:#f0f0f0;
 border:0 none;
 color:22313F;
 width:100px;
@@ -137,8 +137,8 @@ width: 100%;
 height:60px;
 color:#ffffff;
 background-color: #C0392B;
-position: absolute; 
-bottom: 0; 
+position: absolute;
+bottom: 0;
 }
 #clueword p{
 padding:10px;
@@ -199,7 +199,7 @@ width:60%;
 float:left;
 }
 span{
-background:transparent; 
+background:transparent;
 border:0 none;
 color:white;
 width:600px;
@@ -217,10 +217,15 @@ font-family: 'Pacifico', cursive;
 <div id="headerText"><h1>The Drawing Game</h1></div>
 <div id="wrapper">
 
-	<div id="form">	
+	<div id="form">
 		<div id="title">
 		<h2>Hello <%= data.username %>, let's play..</h2>
 		</div>
+
+    <div>
+      <input id="drawColor" type="color" value="#333" />
+    </div>
+
 		<div id="timer">
 		Counting down, Hurry!
 			<div id="counter">
@@ -234,17 +239,17 @@ font-family: 'Pacifico', cursive;
 					clearInterval(downloadTimer);
 					if(timeleft <= 0) {
 				document.getElementById("timer").textContent = "Time's up! refresh to play again";
-				}				
+				}
 				},1000);
 
-				
+
 			</script>
 
 		</div>
 		<div id="playerboard">
 			<!--canvas goes here -->
 		</div>
-		
+
 		<div id="scoreboard">
 			<h3>Scoreboard</h3>
 		<table class="blueTable">
@@ -262,18 +267,18 @@ font-family: 'Pacifico', cursive;
 		<tr><td><%= data.username %></td><td>1</td></tr>
 		<tr><td>James</td><td>2</td></tr>
 
-		
+
 
 		</tbody>
 		</tr>
 		</table>
-			
+
 		</div>
 	</div>
 	<div id="clueword">
 	Your Clue word is "<%= data.clueword %>", if you want to change it, you must start a new game. Here is <a href=""> how</a> to play.
 	<span>Ooo, nearly ... Try again</span></div>
-	
+
 </div>
 
   </body>
