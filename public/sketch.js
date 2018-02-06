@@ -15,7 +15,7 @@ function setup() {
 
 function newDrawing(data){
   noStroke();
-  fill(255, 0, 100);
+  fill(data.colour);
   ellipse(data.x, data.y, 10, 10);
 }
 
@@ -25,16 +25,17 @@ function newDrawing(data){
 
 function mouseDragged(){
   console.log('Sending: ' + mouseX + ', ' + mouseY);
-
+  var drawColour=document.getElementById('drawColor').value;
   var data = {
     x: mouseX,
-    y: mouseY
+    y: mouseY,
+    colour: drawColour
   }
 
   socket.emit('mouse', data);
-
-  noStroke();
-  fill(255);
+    noStroke();
+    var drawColour=document.getElementById('drawColor').value;
+  fill(drawColour);
   ellipse(mouseX, mouseY, 5, 5);
 }
 

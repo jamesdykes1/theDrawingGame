@@ -15,7 +15,7 @@ function setup() {
 
 function newDrawing(data){
   noStroke();
-  fill(255, 0, 100);
+  fill(data.colour);
   ellipse(data.x, data.y, 10, 10);
 }
 
