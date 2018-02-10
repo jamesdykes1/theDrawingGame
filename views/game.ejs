@@ -172,8 +172,8 @@ table.blueTable thead th {
   font-size: 1.2em;
   font-weight: bold;
   color: #22313F;
-  width:30%;
-  height:100px;
+  width:20%;
+  height:80px;
   background-color:transparent;
   float:right;
   text-align:center;
@@ -184,14 +184,12 @@ table.blueTable thead th {
 
 
 #counter {
-  width:30%;
-  height:100%;
+  width:20%;
+  height:60%;
   background-color:transparent;
-  border: 1px solid #C0392B;
-	border-radius: 10px;
   float:right;
   padding-left:6px;
-    font-size: 4em;
+    font-size: 2em;
 
 }
 #title {
@@ -222,29 +220,12 @@ font-family: 'Pacifico', cursive;
 		<h2>Hello <%= data.username %>, let's play..</h2>
 		</div>
 
-    <div>
-      <input id="drawColor" type="color" value="#333" />
-    </div>
-
 		<div id="timer">
-		Counting down, Hurry!
+		</br>Choose color
 			<div id="counter">
+      <input id="drawColor" type="color" value="#333" />
+			
 			</div>
-			<script type="text/javascript">
-				var timeleft = 90;
-				var downloadTimer = setInterval(function(){
-				timeleft--;
-				document.getElementById("counter").textContent = timeleft;
-				if(timeleft <= 0)
-					clearInterval(downloadTimer);
-					if(timeleft <= 0) {
-				document.getElementById("timer").textContent = "Time's up! refresh to play again";
-				}
-				},1000);
-
-
-			</script>
-
 		</div>
 		<div id="playerboard">
 			<!--canvas goes here -->
@@ -260,13 +241,11 @@ font-family: 'Pacifico', cursive;
 		</tr>
 		</thead>
 		<tbody>
-		<tr><td><%= data.username %></td><td>1</td></tr>
-		<tr><td>James</td><td>2</td></tr>
-		<tr><td>Max</td><td>3</td></tr>
-		<tr><td>Jack</td><td>4</td></tr>
-		<tr><td><%= data.username %></td><td>1</td></tr>
-		<tr><td>James</td><td>2</td></tr>
-
+		<% if (data.score == ""){%>
+		<tr><td><%= data.username %></td><td>0</td><td style="color:green;"></td></tr>
+		<% }else {%>
+		<tr><td><%= data.username %></td><td><%= data.score %></td><td style="color:green;"></td></tr>
+		<%}%>
 
 
 		</tbody>
@@ -277,7 +256,7 @@ font-family: 'Pacifico', cursive;
 	</div>
 	<div id="clueword">
 	Your Clue word is "<%= data.clueword %>", if you want to change it, you must start a new game. Here is <a href=""> how</a> to play.
-	<span>Ooo, nearly ... Try again</span></div>
+	<span>Display who is guessing</span></div>
 
 </div>
 

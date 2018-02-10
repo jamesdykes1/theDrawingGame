@@ -118,6 +118,8 @@ padding:20px;
 }
 #playerboard {
 float:left;
+width:50%;
+height:360px;
 }
 body {
 margin-top:-80px;
@@ -176,8 +178,8 @@ margin:10px 0 0 156px;
   font-size: 1.2em;
   font-weight: bold;
   color: #22313F;
-  width:30%;
-  height:100px;
+  width:20%;
+  height:80px;
   background-color:transparent;
   float:right;
   text-align:center;
@@ -188,14 +190,14 @@ margin:10px 0 0 156px;
 
 
 #counter {
-  width:30%;
-  height:100%;
+  width:20%;
+  height:60%;
   background-color:transparent;
   border: 1px solid #C0392B;
 	border-radius: 10px;
   float:right;
   padding-left:6px;
-    font-size: 4em;
+    font-size: 2em;
 
 }
 #title {
@@ -258,15 +260,14 @@ font-family: 'Pacifico', cursive;
 		</tr>
 		</thead>
 		<tbody>
-		<tr><td><%= data.username %></td><td>1</td></tr>
-		<tr><td>James</td><td>2</td></tr>
-		<tr><td>Max</td><td>3</td></tr>
-		<tr><td>Jack</td><td>4</td></tr>
-		<tr><td><%= data.username %></td><td>1</td></tr>
-		<tr><td>James</td><td>2</td></tr>
-
-		
-
+		<%for (var players in data.player){%>
+			<tr><td><%= data.player[players] %></td>
+			<td><%= data.playerscore[players] %> </td>
+			<% if (data.score == 1){%>
+				<td style="color:green;">Winner</td>
+			<%}%></tr>
+		<%}%>
+			
 		</tbody>
 		</tr>
 		</table>
@@ -280,9 +281,11 @@ font-family: 'Pacifico', cursive;
 				<input type="text" name="guessedWord"/> 
 				<input type="submit" onclick="check(this.form)" value="Guess"/>
 				<input type="reset" value="Cancel"/>
-
-				<span class="span">Ooo nice one, you got it.</span>
-
+				<% if (data.score == 1){%>
+				<span class="span">Ooo nice one, <%= data.username %> got it.</span>
+				<% }else {%>
+				<span class="span">Nearly, try again..</span>
+				<%}%>
 			</form>
 
 

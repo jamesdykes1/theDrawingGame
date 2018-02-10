@@ -129,12 +129,20 @@ margin-top:-80px;
  
 	<div id="form">
 			<form name="player" method="POST" action="/player">
-				<h2>Choose a user name</h2>
+				<% if (data.serverRequest == 0){%>
+				<h2>Let's play! Choose a user name</h2>
 				<input type="text" name="username"/>
 				<h2>Give a clue word</h2>
 				<input type="text" name="clueword"/> </br></br>
 				<input type="submit" onclick="check(this.form)" value="Play"/>
 				<input type="reset" value="Cancel"/>
+				<%} else {%>
+				<h2>Join the fun! Choose a user name</h2>
+				<input type="text" name="username"/></br></br>
+				<input type="submit" onclick="check(this.form)" value="Play"/>
+				<input type="reset" value="Cancel"/>
+				<input type="hidden" name="clueword" visible="false"/> </br></br>
+				<%}%>
 			</form>
 
 	</div>

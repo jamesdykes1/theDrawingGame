@@ -7,14 +7,14 @@ var server = app.listen(3000);
 var addRequestId = require('express-request-id')();
 var session = require('express-session');
 var parseurl = require('parseurl');
+var stringSimilarity = require('string-similarity');
  
 var socket = require('socket.io');
 var io = socket(server);
 var cred = require('./cred.js');
-
+var path = require('path');
 
 app.set('view engine', 'ejs');
-
 
 console.log("Server Running");
 
@@ -23,9 +23,9 @@ console.log("Server Running");
  */
 
 var serverReq = 0;
-var session;
 var clue= [];
-
+var player = new Array;
+var playerscore = new Array;
 http.createServer(function(req, res){
 	
 	serverReq++;
@@ -36,13 +36,25 @@ http.createServer(function(req, res){
 
 io.sockets.on('connection', newConnection);
 app.use(addRequestId);
-app.use(express.static(__dirname + '/public'));
+
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+//app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('cookie-parser') (cred.cookieSecret));
 app.use(session({secret: 'drawinggame',saveUninitialized: true,resave: false}));
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+app.get('/', function(req,res){
+	
+	res.render('index', {data: {serverRequest: serverReq}});
+
+});
+
 
 app.post('/player', urlencodedParser, function (req, res) {
 	
@@ -53,55 +65,71 @@ app.post('/player', urlencodedParser, function (req, res) {
   console.log(req.sessionID);  
   console.log('request '+serverReq);
 
-	clue += req.body.clueword;  
+	clue += req.body.clueword; 
+	
 	session = req.session;
 	session.username = req.body.username;
-	//session.clueword = req.body.clueword;
-
+	session.clueword = req.body.clueword;
+	console.log(req.session);
+					
 		if (serverReq == 0) {
-			res.render('game', {data: req.body});	
+			res.render('game', 
+			{
+					data: {
+						username: req.session.username
+						//score: scores
+					}
+				}
+			);	
 			serverReq++;
 			console.log(serverReq);
 			}
 			else {
-				res.render('incorrectguess', {data: req.body});
+				res.render('correctguess', 
+				{
+					data: {
+						username: req.session.username
+						//score: scores
+					}
+				});
 				serverReq++;
 				console.log(serverReq);
 			}
-			
+
+
+
 	});
-var message = '';
 	
 app.post('/guesser', urlencodedParser, function (req, res) {
+	console.log(req.session);
 	  if (!req.body) return res.sendStatus(400)
-		
-	  guessedWord = req.body.guessedWord;
-		console.log (guessedWord);
-		console.log (clue);
-	  if (clue == guessedWord) {
-		  //console.log ('Correct');
-		  message = 'correct';
-		  console.log (message);
-		  res.render('correctguess', {data: req.body});
-	  } else {
-			message = 'Incorrect';
-		 	 // console.log ('Incorrect');
-			  console.log (message);
-			  res.render('incorrectguess', {data: req.body});
-	  }
-	
+		if  (req.sessionID){
+		  guessedWord = req.body.guessedWord;
+		  
+			console.log (guessedWord);
+			console.log (clue);
+			
+		scores = stringSimilarity.compareTwoStrings(clue,guessedWord);
+				for (var i = 0; i < 1; i++){  
+
+					player.push(req.session.username);
+					playerscore.push(scores);
+				}
+			console.log(player);
+			console.log(playerscore);
+				console.log(scores)
+			  res.render('correctguess', 
+			  {data: {
+						username: req.session.username,
+						score: scores,
+						player:player,
+						playerscore:playerscore
+					}
+				});
+			   guessedWord = [];
+
+		}
 });	
-	
-/*	
-app.get('/guesser', function(req,res){
-	
-	session = req.session;
-
-});
-
-	
-
-*/
 
 
 
@@ -118,34 +146,5 @@ function newConnection(socket){
     socket.broadcast.emit('mouse', data);
     console.log(data);
   }
-  
-  /*
-  	function nameOfDrawing(data){
-		drawingName = data;
-		console.log(drawingName);
-	}
-
-	function listOfGuesses(data){
-		allGuesses.push(data);
-		console.log(allGuesses);
-		for (var i = 0; i < allGuesses.length; i++) {
-			
-			
-			
-			
-			if (allGuesses[i] == drawingName) {
-				console.log('Correct!');
-			}
-			else {
-				console.log('Incorrect.');
-				allGuesses.splice(i, 1);
-			}
-		}
-	}
-  
-  */
-  
-  
-  
 
 }

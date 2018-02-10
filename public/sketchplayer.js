@@ -1,7 +1,7 @@
 var socket;
 
 function setup() {
-  var canvas = createCanvas(680, 400);
+  var canvas = createCanvas(500, 400);
   canvas.parent('playerboard');
   background(51);
 
