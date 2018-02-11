@@ -11,204 +11,10 @@
     <script src="libraries/p5.sound.js"></script>
     <!-- socket io client served from CDN -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
-
-
+    <link rel="stylesheet" href="/style.css">
 		<script src="sketch.js"></script>
 
 
-<style>
-#result {
-width:80%;
-color:#666666;
-margin-right:auto;
-margin-left: auto;
-margin-top:10px;
-padding:10px;
-font-family:helvetica, sans-serif;line-height:1;
-font-size:14px;
--webkit-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
--moz-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
-box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
-
-}
-#form {
-width:80%;
-margin-right:auto;
-margin-left: auto;
-
-}
-#wrapper {
-width:80%;
-position: relative;
-height:600px;
-margin-right:auto;
-margin-left: auto;
-margin-top:-40px;
-padding-bottom:20px;
--webkit-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
-background-image: url("White-Backgrounds.jpg");
-}
-
-h1 {
-text-shadow:3px 1px 1px rgba(82,82,82,1);
-font-weight:bold;
-color:#ffffff;
-letter-spacing:1pt;
-word-spacing:2pt;
-font-size:4em;
-text-align:center;
-font-family: 'Pacifico', cursive;
-padding:10px;
-}
-h2 {
-color:#C0392B;
-font-size:2em;
-font-family: 'Homemade Apple', cursive;
-padding-top:10px;
-}
-
-input[type=text] {
-padding:5px 15px;
-background:#f0f0f0;
-border:0 none;
-cursor:pointer;
-color:999999;
-width:400px;
-height:20px;
-}
-input[type=submit] {
-background:#C0392B;
-border:0 none;
-color:white;
-width:140px;
-height:30px;
-}
-input[type=reset] {
-background:#f0f0f0;
-border:0 none;
-color:22313F;
-width:100px;
-height:30px;
-}
-#headerText {
-width:100%;
-height: 300px;
-margin-bottom:4px;
-background-image: url("back2.png"),  url("back.png");
-background-position: right bottom, left top;
-background-color: #C0392B;
-background-repeat: no-repeat, no-repeat;
-background-size: 20% 100%;
-}
-#headerText h1{
-line-height: 300px;
-}
-#scoreboard {
-width:40%;
-height:360px;
-float:right;
-background-color:#f0f0f0;
-opacity: transparent;
-background-image: url("scoreboard.png");
-padding:20px;
-}
-#playerboard {
-float:left;
-}
-body {
-margin-top:-80px;
-}
-#form h3 {
-width: 90%;
-float:right;
-text-align:center;
-font-family: 'Indie Flower', cursive;
-font-size:2em;
-color:#22313F;
-background-color: transparent;
-}
-#clueword {
-font-weight:bold;
-font-size:1em;
-width: 100%;
-height:60px;
-color:#ffffff;
-background-color: #C0392B;
-position: absolute;
-bottom: 0;
-}
-#clueword p{
-padding:10px;
-}
-
-
-table.blueTable {
-  width: 90%;
-  float:right;
-  text-align: left;
-  margin-top:-40px;
-  border-collapse: collapse;
-  color:#22313F;
-  background-color: transparent;
-  font-family: 'Indie Flower', cursive;
-}
-
-table.blueTable tbody td {
-  font-size: 1em;
-    padding:2px;
-}
-
-table.blueTable thead th {
-  font-size: 1.2em;
-  font-weight: bold;
-	text-decoration: underline;
-  color: #22313F;
-
-}
-#timer {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #22313F;
-  width:20%;
-  height:80px;
-  background-color:transparent;
-  float:right;
-  text-align:center;
-    font-family: 'Indie Flower', cursive;
-	margin-top:20px;
-
-}
-
-
-#counter {
-  width:20%;
-  height:60%;
-  background-color:transparent;
-  float:right;
-  padding-left:6px;
-    font-size: 2em;
-
-}
-#title {
-width:60%;
-float:left;
-}
-span{
-background:transparent;
-border:0 none;
-color:white;
-width:600px;
-height:30px;
-float:right;
-text-align:left;
-font-size:1.4em;
-font-family: 'Pacifico', cursive;
-
-}
-</style>
   </head>
   <body>
 
@@ -216,47 +22,58 @@ font-family: 'Pacifico', cursive;
 <div id="wrapper">
 
 	<div id="form">
-		<div id="title">
-		<h2>Hello <%= data.username %>, let's play..</h2>
-		</div>
+    <div class="containerOne">
+      <div id="title">
+  		<h2>Hello <%= data.username %>, let's play..</h2>
+  		</div>
 
-		<div id="timer">
-		</br>Choose color
-			<div id="counter">
-      <input id="drawColor" type="color" value="#333" />
-			
-			</div>
-		</div>
-		<div id="playerboard">
-			<!--canvas goes here -->
-		</div>
+  		<div id="timer">
+  			<div id="counter">
+        </div>
+  		</div>
+      <div id="colorText">
+        <p>Choose colour:</p>
+      </div>
+      <div id="colourSelector">
+        <input id="drawColor" type="color" value="#ffffff"/>
+      </div>
+    </div>
 
-		<div id="scoreboard">
-			<h3>Scoreboard</h3>
-		<table class="blueTable">
-		<thead>
-		<tr>
-		<th>Player</th>
-		<th>Score</th>
-		</tr>
-		</thead>
-		<tbody>
-		<% if (data.score == ""){%>
-		<tr><td><%= data.username %></td><td>0</td><td style="color:green;"></td></tr>
-		<% }else {%>
-		<tr><td><%= data.username %></td><td><%= data.score %></td><td style="color:green;"></td></tr>
-		<%}%>
+    <div class="containerTwo">
+      <div id="playerboard">
+  			<!--canvas goes here -->
+  		</div>
+
+  		<div id="scoreboard">
+  			<h3>Scoreboard</h3>
+  		<table class="blueTable">
+  		<thead>
+  		<tr>
+  		<th>Player</th>
+  		<th>Score</th>
+  		</tr>
+  		</thead>
+  		<tbody>
+  		<% if (data.score == ""){%>
+  		<tr><td><%= data.username %></td><td>0</td><td style="color:green;"></td></tr>
+  		<% }else {%>
+  		<tr><td><%= data.username %></td><td><%= data.score %></td><td style="color:green;"></td></tr>
+  		<%}%>
 
 
-		</tbody>
-		</tr>
-		</table>
+  		</tbody>
+  		</tr>
+  		</table>
 
-		</div>
+  		</div>
+    </div>
+
+
 	</div>
-	<div id="clueword">
-	Your Clue word is "<%= data.clueword %>", if you want to change it, you must start a new game. Here is <a href=""> how</a> to play.
-	<span>Display who is guessing</span></div>
+    <div id="clueword">
+  	Your Clue word is "<%= data.clueword %>", if you want to change it, you must start a new game. Here is <a href=""> how</a> to play.
+  	<span>Display who is guessing</span></div>
+
 
 </div>
 

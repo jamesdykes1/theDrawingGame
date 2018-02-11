@@ -12,10 +12,10 @@
     <!-- socket io client served from CDN -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script language="javascript">
-          /*  function check(form) { 
+          /*  function check(form) {
                 var playername = form.userid.value;
                 //mainBody.style.display = "none";
-				if(playername != "" ) {					
+				if(playername != "" ) {
 					for (var i = 0; i < playername.length; i++){
 						Player1.innerText += playername;
 						mainDiv.style.display = "none";
@@ -26,8 +26,8 @@
                     alert("get username");
 					mainBody.style.display = "none";
                 }
-				
-				
+
+
             } */
         </script>
 <style>
@@ -49,7 +49,6 @@ box-shadow: 0px -10px 16px -14px rgba(0,0,0,0.75);
 width:80%;
 margin-right:auto;
 margin-left: auto;
-
 }
 #wrapper {
 width:80%;
@@ -80,17 +79,19 @@ padding-top:10px;
 }
 
 input[type=text] {
-padding:5px 15px; 
-background:#f0f0f0; 
+padding:5px 15px;
+background:#f0f0f0;
 border:0 none;
 cursor:pointer;
 color:999999;
 width:400px;
 height:40px;
-font-family: 'Pacifico', cursive;
+font-family: 'Indie Flower', cursive;
+font-weight: 600;
+font-size: 1.3em;
 }
 input[type=submit] {
-background:#C0392B; 
+background:#C0392B;
 border:0 none;
 color:white;
 font-family: 'Indie Flower', cursive;
@@ -100,7 +101,7 @@ height:40px;
 font-family: 'Pacifico', cursive;
 }
 input[type=reset] {
-background-color:#f0f0f0; 
+background-color:#f0f0f0;
 border:0 none;
 color:#22313F;
 font-family: 'Indie Flower', cursive;
@@ -126,7 +127,7 @@ margin-top:-80px;
   <body>
 <div id="headerText"><h1>The Drawing Game</h1></div>
  <div id="wrapper">
- 
+
 	<div id="form">
 			<form name="player" method="POST" action="/player">
 				<% if (data.serverRequest == 0){%>
